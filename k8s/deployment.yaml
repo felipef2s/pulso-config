@@ -1,0 +1,64 @@
+# O estado desejado do pulso.
+# Quem escreve a linha da imagem, a partir do módulo 5, é o ci-bot.
+# Todo o resto é você, por Pull Request.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pulso
+  namespace: pulso
+  labels:
+    app: pulso
+spec:
+  progressDeadlineSeconds: 90
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pulso
+  template:
+    metadata:
+      labels:
+        app: pulso
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: pulso
+          # nunca use :SUBSTITUA_PELO_SHA aqui — a tag por SHA é o que faz o ArgoCD
+          # enxergar uma versão nova (aula 5.1)
+          image: ghcr.io/felipef2s/pulso-app:9e3033b61eeb16cbbfdcc0459642cb4d307d8d11
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 5000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 15

@@ -1,0 +1,22 @@
+
+# Aplique com:  kubectl apply -n argocd -f argocd/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pulso
+  namespace: argocd            # a Application mora aqui
+spec:
+  project: default
+
+  source:                      # DE ONDE
+    repoURL: https://github.com/felipef2s/pulso-config.git
+    targetRevision: main
+    path: k8s
+
+  destination:                 # PARA ONDE
+    server: https://kubernetes.default.svc
+    namespace: pulso
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true   # sem isto o sync falha: o namespace não existe

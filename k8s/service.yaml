@@ -1,0 +1,15 @@
+# O endereço estável do pulso dentro do cluster.
+# Os pods vão e vêm; o Service continua o mesmo.
+apiVersion: v1
+kind: Service
+metadata:
+  name: pulso
+  namespace: pulso
+spec:
+  selector:
+    app: pulso          # é por este rótulo que ele encontra os pods
+  ports:
+    - name: http
+      port: 80          # a porta do Service
+      targetPort: 5000  # a porta do container
+  type: ClusterIP
