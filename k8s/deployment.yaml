@@ -34,7 +34,7 @@ spec:
         - name: pulso
           # nunca use :SUBSTITUA_PELO_SHA aqui — a tag por SHA é o que faz o ArgoCD
           # enxergar uma versão nova (aula 5.1)
-          image: ghcr.io/felipef2s/pulso-app:9e3033b61eeb16cbbfdcc0459642cb4d307ddasdasdasasasda
+          image: ghcr.io/felipef2s/pulso-app:9e3033b61eeb16cbbfdcc0459642cb4d307d8d11
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
