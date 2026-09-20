@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pulso-descartavel
+  namespace: pulso
+data:
+  motivo: " este configmap ira ser deletado"
