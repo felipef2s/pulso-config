@@ -19,7 +19,7 @@ spec:
 
   syncPolicy:
     automated:
-      prune: true       # o que sai do Git sai do cluster (cuidado: apaga de verdade)
+      prune: false      # o que sai do Git sai do cluster (cuidado: apaga de verdade)
       selfHeal: false    # mudança feita na mão não sobrevive
     syncOptions:
       - CreateNamespace=true
