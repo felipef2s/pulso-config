@@ -1,3 +1,6 @@
+# Ambiente de PROD — aula 5.2.
+# Promover uma versão de dev para prod é um Pull Request que copia a linha
+# da imagem de uma pasta para a outra. O deploy virou uma decisão registrada.
 # O estado desejado do pulso.
 # Quem escreve a linha da imagem, a partir do módulo 5, é o ci-bot.
 # Todo o resto é você, por Pull Request.
@@ -5,7 +8,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pulso
-  namespace: pulso
+  namespace: pulso-prod
   labels:
     app: pulso
 spec:
@@ -15,7 +18,7 @@ spec:
     rollingUpdate:
       maxUnavailable: 0
       maxSurge: 1
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: pulso

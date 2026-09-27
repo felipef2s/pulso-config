@@ -1,3 +1,6 @@
+# Ambiente de DEV — aula 5.2.
+# Cada pasta descreve o ambiente inteiro, sozinha. Sim, duplica YAML:
+# comece assim mesmo. Quando a duplicação incomodar, Kustomize e Helm resolvem.
 # O estado desejado do pulso.
 # Quem escreve a linha da imagem, a partir do módulo 5, é o ci-bot.
 # Todo o resto é você, por Pull Request.
@@ -5,7 +8,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pulso
-  namespace: pulso
+  namespace: pulso-dev
   labels:
     app: pulso
 spec:
@@ -15,7 +18,7 @@ spec:
     rollingUpdate:
       maxUnavailable: 0
       maxSurge: 1
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: pulso
