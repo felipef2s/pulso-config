@@ -6,7 +6,7 @@ metadata:
   name: pulso-dev
   namespace: argocd
 spec:
-  project: pulso
+  project: default
   source:
     repoURL: https://github.com/felipef2s/pulso-config.git
     targetRevision: main
