@@ -6,7 +6,7 @@ metadata:
 spec:
   project: pulso-rollouts
   source:
-    repoURL: https://github.com/SEU-USUARIO/pulso-config.git
+    repoURL: https://github.com/felipef2s/pulso-config.git
     targetRevision: main
     path: rollouts/bluegreen
   destination:
