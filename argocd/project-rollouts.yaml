@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: pulso-rollouts
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  description: Demonstracoes de canary e blue-green do Pulso
+  sourceRepos:
+    - https://github.com/felipef2s/pulso-config.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: pulso-canary
+    - server: https://kubernetes.default.svc
+      namespace: pulso-bluegreen
+  clusterResourceWhitelist: []
+  namespaceResourceWhitelist:
+    - group: argoproj.io
+      kind: Rollout
+    - group: ""
+      kind: Service

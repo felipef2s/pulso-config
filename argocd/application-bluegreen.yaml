@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pulso-bluegreen
+  namespace: argocd
+spec:
+  project: pulso-rollouts
+  source:
+    repoURL: https://github.com/SEU-USUARIO/pulso-config.git
+    targetRevision: main
+    path: rollouts/bluegreen
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: pulso-bluegreen
+  # O controller do Rollouts escolhe a revisao de cada Service.
+  ignoreDifferences:
+    - group: ""
+      kind: Service
+      name: pulso-active
+      jsonPointers:
+        - /spec/selector/rollouts-pod-template-hash
+    - group: ""
+      kind: Service
+      name: pulso-preview
+      jsonPointers:
+        - /spec/selector/rollouts-pod-template-hash
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - RespectIgnoreDifferences=true

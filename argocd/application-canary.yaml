@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pulso-canary
+  namespace: argocd
+spec:
+  project: pulso-rollouts
+  source:
+    repoURL: https://github.com/SEU-USUARIO/pulso-config.git
+    targetRevision: main
+    path: rollouts/canary
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: pulso-canary
+  syncPolicy:
+    automated:
+      enabled: true
+      prune: true
+      selfHeal: true
