@@ -26,7 +26,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: pulso
-          image: ghcr.io/felipef2s/pulso:SUBSTITUA_PELO_SHA
+          image: ghcr.io/felipef2s/pulso:9520dd895cbddc235f4e182ad158693260b879cb
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
